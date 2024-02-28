@@ -1,7 +1,11 @@
 package com.example.Mission2.service;
 
+import com.example.Mission2.dto.RegisterDto;
 import com.example.Mission2.entity.CustomUserDetails;
 import com.example.Mission2.entity.UserEntity;
+import com.example.Mission2.jwt.JwtRequestDto;
+import com.example.Mission2.jwt.JwtResponseDto;
+import com.example.Mission2.jwt.JwtTokenUtils;
 import com.example.Mission2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +22,12 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CustomUserDetailsManager implements UserDetailsManager {
-    private final UserRepository userRepository;
 
+//시스템상으로 회원정보를 관리하는 로직을 담당
+//회원 생성, 수정, 삭제
+public class CustomUserDetailsManager implements UserDetailsManager {
+
+    private final UserRepository userRepository;
 
     @Override
     // formLogin 등 Spring Security 내부에서

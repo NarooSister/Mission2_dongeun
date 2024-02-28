@@ -33,10 +33,10 @@ public class WebSecurityConfig {
                                 "/users/login",
                                 "/users/register"
                         )
-                        .anonymous()
+                        .permitAll()
 
                         // ROLE에 따른 접근 설정
-                        .requestMatchers("/auth/user-role")
+                        .requestMatchers("/users/my-page")
                         .hasAnyRole("TEMPORARY_USER", "USER", "BUSINESS_USER", "ADMIN")
 
                         .requestMatchers("/auth/admin-role")
