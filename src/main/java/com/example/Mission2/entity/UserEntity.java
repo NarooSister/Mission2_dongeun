@@ -1,5 +1,6 @@
 package com.example.Mission2.entity;
 
+import com.example.Mission2.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,20 +21,22 @@ public class UserEntity {
     private String username;
     @Column(nullable = false)
     private String password;
-    //실제 이름
-    private String realname;
-    //별명
-    private String nickname;
-    //연령대
-    private Integer age;
+    @Setter
+    private String realname;          //실제 이름
+    @Setter
+    private String nickname;        //별명
+    @Setter
+    private Integer age;          //연령대
+    @Setter
     private String email;
+    @Setter
     private String phone;
-    //프로필 이미지
-    private String imageUrl;
-    //사업자 등록번호
-    private String businessNum;
-    //역할 및 권한
-    private String role;
+    @Setter
+    private String imageUrl;        //프로필 이미지
+    @Setter
+    private String businessNum;     //사업자 등록번호
+    @Setter
+    private String role;           //역할 및 권한
 
     //TODO ManyToMany를 사용한 authoritiy 관계설정 해보기
     /*@ManyToMany

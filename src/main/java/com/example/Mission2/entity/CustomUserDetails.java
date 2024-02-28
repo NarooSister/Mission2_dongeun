@@ -38,6 +38,15 @@ public class CustomUserDetails implements UserDetails {
     @Getter
     private String role;
 
+    //필수 정보가 모두 추가됐는지 확인
+    public boolean fillInfo(){
+        return realname != null &&
+                nickname != null &&
+                age != 0 &&
+                email != null &&
+                phone != null;
+    }
+
     @Override
     // 임시 사용자, 일반 사용자, 사업자 사용자, 관리자
     // ROLE_TEMPORARY_USER,ROLE_USER,ROLE_BUSINESS,ROLE_ADMIN

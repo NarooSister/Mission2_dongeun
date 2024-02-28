@@ -1,6 +1,5 @@
 package com.example.Mission2.service;
 
-import com.example.Mission2.dto.RegisterDto;
 import com.example.Mission2.entity.CustomUserDetails;
 import com.example.Mission2.entity.UserEntity;
 import com.example.Mission2.jwt.JwtRequestDto;
@@ -32,6 +31,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
     @Override
     // formLogin 등 Spring Security 내부에서
     // 인증을 처리할때 사용하는 메서드이다.
+    // User 호출
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         Optional<UserEntity> optionalUser
@@ -56,6 +56,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
     @Override
     // 편의를 위해 같은 규약으로 회원가입을 하는 메서드
+    // User 생성
     public void createUser(UserDetails user) {
        //username 중복 확인
         if (userExists(user.getUsername()))
@@ -76,32 +77,13 @@ public class CustomUserDetailsManager implements UserDetailsManager {
     }
 
     @Override
+    public void updateUser(UserDetails user) {
+        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+    }
+    @Override
+    // User 확인
     public boolean userExists(String username) {
         return userRepository.existsByUsername(username);
-    }
-
-    @Override
-    public void updateUser(UserDetails user) {
-        try {
-            CustomUserDetails userDetails =
-                    (CustomUserDetails) user;
-            UserEntity newUser = UserEntity.builder()
-                    .username(userDetails.getUsername())
-                    .password(userDetails.getPassword())
-                    .realname(userDetails.getRealname())
-                    .nickname(userDetails.getNickname())
-                    .age(userDetails.getAge())
-                    .email(userDetails.getEmail())
-                    .phone(userDetails.getPhone())
-                    .imageUrl(userDetails.getImageUrl())
-                    .businessNum(userDetails.getBusinessNum())
-                    .role("ROLE_USER")
-                    .build();
-            userRepository.save(newUser);
-        } catch (ClassCastException e) {
-            log.error("Failed Cast to: {}", CustomUserDetails.class);
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @Override

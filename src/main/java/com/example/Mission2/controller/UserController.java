@@ -1,5 +1,6 @@
 package com.example.Mission2.controller;
 
+import com.example.Mission2.dto.UserDto;
 import com.example.Mission2.entity.CustomUserDetails;
 import com.example.Mission2.jwt.JwtRequestDto;
 import com.example.Mission2.service.CustomUserDetailsManager;
@@ -22,11 +23,11 @@ public class UserController {
     @PostMapping("/register")
     public String register(
             @RequestParam String username,
-            @RequestParam String password
-           // @RequestBody String passwordCheck
+            @RequestParam String password,
+            @RequestParam String passwordCheck
     ){
       //비밀번호 한번 더 확인하기
-      //  if (password.equals(passwordCheck))
+       if (password.equals(passwordCheck))
             manager.createUser(CustomUserDetails.builder()
                     .username(username)
                     .password(passwordEncoder.encode(password))
@@ -41,7 +42,7 @@ public class UserController {
             JwtRequestDto dto
     ){
         //token값 String으로 볼 수 있음
-        return userService.loginUser(dto);
+        return "token 값 : " + userService.loginUser(dto);
     }
 
     //마이페이지
@@ -53,5 +54,16 @@ public class UserController {
         manager.loadUserByUsername(username);
         return "my page";
     }
+
+    //유저 정보 추가한 뒤 일반 사용자로 전환
+    @PostMapping("/update-info")
+    public String updateUserInfo(
+            @RequestParam("username") String username,
+            @RequestBody CustomUserDetails user
+    ){
+       userService.updateUserInfo(username, user);
+        return "update";
+    }
+
 
 }

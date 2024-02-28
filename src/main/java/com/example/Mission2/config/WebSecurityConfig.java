@@ -36,7 +36,10 @@ public class WebSecurityConfig {
                         .permitAll()
 
                         // ROLE에 따른 접근 설정
-                        .requestMatchers("/users/my-page")
+                        .requestMatchers(
+                                "/users/my-page",
+                                "/users/update-info"
+                        )
                         .hasAnyRole("TEMPORARY_USER", "USER", "BUSINESS_USER", "ADMIN")
 
                         .requestMatchers("/auth/admin-role")
