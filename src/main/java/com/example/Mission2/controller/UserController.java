@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
@@ -64,6 +65,16 @@ public class UserController {
        userService.updateUserInfo(username, user);
         return "update";
     }
+
+    //프로필 이미지 등록
+    @PutMapping("/image")
+    public UserDto image(
+            @RequestParam("image") MultipartFile image
+            ){
+        return userService.updateUserImage(image);
+
+    }
+    //사업자 사용자로 전환신청
 
 
 }

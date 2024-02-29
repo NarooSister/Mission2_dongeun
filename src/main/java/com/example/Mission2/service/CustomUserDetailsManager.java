@@ -41,6 +41,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
         UserEntity userEntity = optionalUser.get();
         return CustomUserDetails.builder()
+                .id(userEntity.getId())
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
                 .realname(userEntity.getRealname())
