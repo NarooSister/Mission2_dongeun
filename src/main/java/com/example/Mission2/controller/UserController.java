@@ -75,6 +75,14 @@ public class UserController {
 
     }
     //사업자 사용자로 전환신청
+    @PutMapping("/business")
+    public String updateBusinessNum(
+            @RequestParam("businessNum")
+            String businessNum
+    ){
+        userService.updateBusinessNum(businessNum);
+        return "사업자 번호 등록 완료";
+    }
 
 
 }

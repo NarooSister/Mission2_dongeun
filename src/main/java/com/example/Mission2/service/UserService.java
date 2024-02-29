@@ -128,7 +128,17 @@ public class UserService {
 
 
     //일반 사용자 -> 사업자 사용자
-    //BusinessNum 입력 후 허가 받음.
+    //USER가 BusinessNum 입력 후 사업자 등록 신청
+    public void updateBusinessNum(String businessNum){
+        //유저 정보 가져오기
+        UserEntity userEntity = getUserEntity();
+        //ROLE_USER 인지 확인
+        if(!userEntity.getRole().equals("ROLE_USER"))
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "일반 사용자만이 사업자 사용자 전환 신청이 가능합니다.");
+
+        userEntity.setBusinessNum(businessNum);
+        userRepository.save(userEntity);
+    }
 
 
     //UserEntity 가져오는 메소드 만들어서 사용
