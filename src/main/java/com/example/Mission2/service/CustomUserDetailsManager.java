@@ -2,9 +2,6 @@ package com.example.Mission2.service;
 
 import com.example.Mission2.entity.CustomUserDetails;
 import com.example.Mission2.entity.UserEntity;
-import com.example.Mission2.jwt.JwtRequestDto;
-import com.example.Mission2.jwt.JwtResponseDto;
-import com.example.Mission2.jwt.JwtTokenUtils;
 import com.example.Mission2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +17,39 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
-
 //시스템상으로 회원정보를 관리하는 로직을 담당
 //회원 생성, 수정, 삭제
 public class CustomUserDetailsManager implements UserDetailsManager {
-
     private final UserRepository userRepository;
+    public CustomUserDetailsManager(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder
+    ) {
+        this.userRepository = userRepository;
+        //admin 추가
+        createUser(CustomUserDetails.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("1234"))
+                .role("ROLE_ADMIN")
+                .build());
+       /* //user 추가
+        createUser(CustomUserDetails.builder()
+                .username("user1")
+                .password(passwordEncoder.encode("1234"))
+                .realname("user1")
+                .nickname("nickUser1")
+                .age(15)
+                .email("user1@Gmail.com")
+                .phone("01012345678")
+                .role("ROLE_USER")
+                .build());
+        //user 추가
+        createUser(CustomUserDetails.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("1234"))
+                .role("ROLE_TEMPORARYUSER")
+                .build());*/
+    }
 
     @Override
     // formLogin 등 Spring Security 내부에서
@@ -68,8 +91,14 @@ public class CustomUserDetailsManager implements UserDetailsManager {
             UserEntity newUser = UserEntity.builder()
                     .username(userDetails.getUsername())
                     .password(userDetails.getPassword())
-                    .role("ROLE_TEMPORARY_USER")
                     .build();
+
+            //처음 생성하는 Admin인 경우 포함해서 구현
+            if(userDetails.getRole() != null){
+                newUser.setRole(userDetails.getRole());
+            } else {
+                newUser.setRole("ROLE_TEMPORARY_USER");
+            }
             userRepository.save(newUser);
         } catch (ClassCastException e) {
             log.error("Failed Cast to: {}", CustomUserDetails.class);

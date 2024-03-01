@@ -47,6 +47,7 @@ public class UserController {
     }
 
     //마이페이지
+    //READ ALL
     @GetMapping("/my-page")
     public String myPage(
             @RequestParam
@@ -57,6 +58,8 @@ public class UserController {
     }
 
     //유저 정보 추가한 뒤 일반 사용자로 전환
+    //임시 사용자 -> 일반 사용자 : 필요한 내용만 update
+    //UPDATE
     @PostMapping("/update-info")
     public String updateUserInfo(
             @RequestParam("username") String username,
@@ -65,6 +68,10 @@ public class UserController {
        userService.updateUserInfo(username, user);
         return "update";
     }
+
+    //TODO : 유저 정보 수정은 따로
+    //CustomUserDetailsManage에 updateUser로 받아오기
+    
 
     //프로필 이미지 등록
     @PutMapping("/image")
