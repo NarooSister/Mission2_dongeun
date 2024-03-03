@@ -1,7 +1,6 @@
 package com.example.Mission2.dto;
 
 import com.example.Mission2.entity.UserEntity;
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter
@@ -35,6 +34,4 @@ public class UserDto {
                 .role(entity.getRole())
                 .build();
     }
-
-
 }

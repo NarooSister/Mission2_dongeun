@@ -1,5 +1,6 @@
 package com.example.Mission2.service;
 
+import com.example.Mission2.AuthenticationFacade;
 import com.example.Mission2.dto.UserDto;
 import com.example.Mission2.entity.CustomUserDetails;
 import com.example.Mission2.entity.UserEntity;
@@ -29,6 +30,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtils jwtTokenUtils;
     private final UserRepository userRepository;
+    private final AuthenticationFacade facade;
 
     //로그인
     public String loginUser(JwtRequestDto dto) {
@@ -79,7 +81,7 @@ public class UserService {
     //프로필 이미지 등록
     public UserDto updateUserImage(MultipartFile image) {
         //유저 존재 확인
-        UserEntity userEntity = getUserEntity();
+        UserEntity userEntity = facade.getUserEntity();
 
         String profileDir = "media/profile/";
         log.info(profileDir);
@@ -92,7 +94,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        String username = getUserEntity().getUsername();
+        String username = facade.getUserEntity().getUsername();
 
         // 실제 파일 이름을 경로와 확장자를 포함하여 만들기 ("profile_{username}.{png}")
         String originalFilename = image.getOriginalFilename();
@@ -113,12 +115,12 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        Long id = getUserEntity().getId();
+        Long id = facade.getUserEntity().getId();
         // User에 아바타 위치를 저장
         // http://localhost:8080/static/{id}/profile_{username}.{확장자}
         String requestPath = String.format("/static/%d/%s", id, profileFilename);
         log.info(requestPath);
-        UserEntity target = getUserEntity();
+        UserEntity target = facade.getUserEntity();
         target.setImageUrl(requestPath);
 
         // 5. 응답하기
@@ -131,7 +133,7 @@ public class UserService {
     //USER가 BusinessNum 입력 후 사업자 등록 신청
     public void updateBusinessNum(String businessNum){
         //유저 정보 가져오기
-        UserEntity userEntity = getUserEntity();
+        UserEntity userEntity = facade.getUserEntity();
         //ROLE_USER 인지 확인
         if(!userEntity.getRole().equals("ROLE_USER"))
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "일반 사용자만이 사업자 사용자 전환 신청이 가능합니다.");
@@ -141,14 +143,15 @@ public class UserService {
     }
 
 
-    //UserEntity 가져오는 메소드 만들어서 사용
+  /*  //UserEntity 가져오는 메소드 만들어서 사용
+      //변경 : facade 만들어서 사용
     private UserEntity getUserEntity(){
         UserDetails userDetails =
                 (UserDetails) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         return userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+    }*/
 
 
 }

@@ -41,8 +41,12 @@ public class WebSecurityConfig {
                                 "/users/update-info"
                         )
                         .hasAnyRole("TEMPORARY_USER", "USER", "BUSINESS_USER", "ADMIN")
+                        .requestMatchers(
+                                "/item/**"
+                        )
+                        .hasAnyRole( "USER", "BUSINESS_USER", "ADMIN")
 
-                        .requestMatchers("/auth/admin-role")
+                        .requestMatchers("/admin/**  ")
                         .hasRole("ADMIN")
 
                         .anyRequest()
@@ -64,10 +68,5 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    @Bean
-    // 비밀번호 암호화 클래스
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }
