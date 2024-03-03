@@ -3,10 +3,8 @@ package com.example.Mission2.controller;
 import com.example.Mission2.dto.OfferDto;
 import com.example.Mission2.service.OfferService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -65,6 +63,9 @@ public class OfferController {
     ){
         return offerService.updateConfirm(itemId, offerId, confirm);
     }
+
+    //UPDATE
+    //대표 이미지 등록
 
     //DELETE
     //구매자가 구매 제안 삭제
