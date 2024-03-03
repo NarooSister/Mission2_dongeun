@@ -238,3 +238,79 @@
 ![ERD](./images/ERD.png)
 - 
 
+
+## 테스트 방법
+Postman으로 테스트
+
+
+### UserController
+1. 회원가입
+
+![users_register.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_register.png)
+
+
+2. 로그인
+
+![users_login.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_login.png)
+
+로그인 후 jwt 토큰 값 저장
+
+3. 마이 페이지
+
+
+4. 임시 사용자 -> 일반 사용자 전환
+
+- Auth에서 token 값 입력
+
+![users_update_token.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_update_token.png)
+
+- params에 username 보내기
+
+![users_update.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_update.png)
+
+- DB에 유저 정보와 ROLE_USER 업데이트 된 것 확인
+
+![users_update_success.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_update_success.png)
+
+5. 프로필 이미지 등록
+
+- token 값 입력 후 이미지 파일 등록
+- 이미지 url 저장된 것 확인
+
+![users_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_image.png)
+
+- 프로필 폴더에 username으로 프로필 이미지 저장된 것 확인
+
+![users_image_save.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_image_save.png)
+
+6. 사업자 사용자로 전환 신청
+
+- 사업자 번호 등록
+
+![users_businessNum.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_businessNum.png)
+
+- DB에 등록 확인
+
+![users_businessNum_save.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_businessNum_save.png)
+
+### AdminController
+
+1. 일반 사용자 -> 사업자 사용자 전환 신청 목록 열람
+
+![admin_business_requestList.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fadmin_business_requestList.png)
+
+
+2. 신청 목록을 보고 승인, 반려
+
+- 승인 : id와 true 전달
+
+![admin_business_true.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fadmin_business_true.png)
+
+- 반려 : id와 false 전달
+
+![admin_business_false.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fadmin_business_false.png)
+
+- 로그 확인
+
+![admin_business_log.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fadmin_business_log.png)
+
