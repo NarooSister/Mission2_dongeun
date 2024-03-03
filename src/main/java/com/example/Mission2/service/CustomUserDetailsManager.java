@@ -32,7 +32,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
                 .password(passwordEncoder.encode("1234"))
                 .role("ROLE_ADMIN")
                 .build());
-       /* //user 추가
+        //user1 추가
         createUser(CustomUserDetails.builder()
                 .username("user1")
                 .password(passwordEncoder.encode("1234"))
@@ -43,12 +43,42 @@ public class CustomUserDetailsManager implements UserDetailsManager {
                 .phone("01012345678")
                 .role("ROLE_USER")
                 .build());
-        //user 추가
+        //user2 추가
         createUser(CustomUserDetails.builder()
-                .username("admin")
+                .username("user2")
                 .password(passwordEncoder.encode("1234"))
-                .role("ROLE_TEMPORARYUSER")
-                .build());*/
+                .realname("user1")
+                .nickname("nickUser1")
+                .age(15)
+                .email("user1@Gmail.com")
+                .phone("01012345678")
+                .businessNum("1213456")
+                .role("ROLE_USER")
+                .build());
+
+        //UsedItem test Buyer
+        createUser(CustomUserDetails.builder()
+                .username("buyer")
+                .password(passwordEncoder.encode("1234"))
+                .realname("buyer")
+                .nickname("nickUser")
+                .age(20)
+                .email("buyer@Gmail.com")
+                .phone("01012345678")
+                .role("ROLE_USER")
+                .build());
+        //UsedItem test Seller
+        createUser(CustomUserDetails.builder()
+                .username("seller")
+                .password(passwordEncoder.encode("1234"))
+                .realname("seller")
+                .nickname("nickUser")
+                .age(20)
+                .email("seller@Gmail.com")
+                .phone("01012345678")
+                .role("ROLE_USER")
+                .build());
+
     }
 
     @Override
@@ -91,9 +121,17 @@ public class CustomUserDetailsManager implements UserDetailsManager {
             UserEntity newUser = UserEntity.builder()
                     .username(userDetails.getUsername())
                     .password(userDetails.getPassword())
+                    .realname(userDetails.getRealname())
+                    .nickname(userDetails.getNickname())
+                    .age(userDetails.getAge())
+                    .email(userDetails.getEmail())
+                    .phone(userDetails.getPhone())
+                    .imageUrl(userDetails.getImageUrl())
+                    .businessNum(userDetails.getBusinessNum())
+                    .role(userDetails.getRole())
                     .build();
 
-            //처음 생성하는 Admin인 경우 포함해서 구현
+            //처음 생성하는 test용 User인 경우 포함해서 구현
             if(userDetails.getRole() != null){
                 newUser.setRole(userDetails.getRole());
             } else {

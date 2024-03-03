@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                         )
                         .hasAnyRole("TEMPORARY_USER", "USER", "BUSINESS_USER", "ADMIN")
                         .requestMatchers(
-                                "/item/**"
+                                "/items/**"
                         )
                         .hasAnyRole( "USER", "BUSINESS_USER", "ADMIN")
 

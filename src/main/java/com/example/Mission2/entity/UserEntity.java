@@ -4,6 +4,9 @@ import com.example.Mission2.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
