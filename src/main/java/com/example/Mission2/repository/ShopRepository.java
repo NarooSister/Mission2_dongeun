@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
     //가장 최근에 거래가 있었던 쇼핑몰 순서로 조회
-    @Query("SELECT s FROM Shop s LEFT JOIN FETCH s.orders o ORDER BY o.createdAt DESC")
+    @Query("SELECT DISTINCT s FROM Shop s LEFT JOIN FETCH s.orders o ORDER BY o.createdAt DESC")
     List<Shop> findAllByRecentOrder();
 
     //이름으로 검색
