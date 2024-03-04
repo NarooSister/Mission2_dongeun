@@ -94,6 +94,7 @@ public class ShopService {
         shop.setName(dto.getName());
         shop.setDescription(dto.getDescription());
         shop.setCategory(dto.getCategory());
+        shop.setStatus(ShopStatus.APPLY);
 
         return ShopDto.fromEntity(shopRepository.save(shop));
     }
@@ -118,6 +119,7 @@ public class ShopService {
         shop.setCloseReason(dto.getCloseReason());
         shop.setStatus(ShopStatus.CLOSE_REQUEST);
         shopRepository.save(shop);
+
     }
 
 }

@@ -55,6 +55,30 @@ public class CustomUserDetailsManager implements UserDetailsManager {
                 .businessNum("1213456")
                 .role("ROLE_USER")
                 .build());
+        //user3 추가
+        createUser(CustomUserDetails.builder()
+                .username("user3")
+                .password(passwordEncoder.encode("1234"))
+                .realname("user3")
+                .nickname("nickUser3")
+                .age(15)
+                .email("user3@Gmail.com")
+                .phone("01012345678")
+                .businessNum("1213456")
+                .role("ROLE_USER")
+                .build());
+        //user4 추가
+        createUser(CustomUserDetails.builder()
+                .username("user4")
+                .password(passwordEncoder.encode("1234"))
+                .realname("user4")
+                .nickname("nickUser1")
+                .age(15)
+                .email("user3@Gmail.com")
+                .phone("01012345678")
+                .businessNum("1213456")
+                .role("ROLE_USER")
+                .build());
 
         //UsedItem test Buyer
         createUser(CustomUserDetails.builder()

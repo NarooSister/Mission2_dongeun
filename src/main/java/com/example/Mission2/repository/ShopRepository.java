@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
@@ -20,10 +21,12 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     //분류로 검색
     List<Shop> findAllByCategory(ShopCategory category);
 
-    //개설, 폐쇄 신청 쇼핑몰 보기
+    //주인 아이디로 찾기
+    Optional<Shop> findByOwnerId(Long ownerId);
+
+    //admin - status로 쇼핑몰 찾기
     List<Shop> findAllByStatus(ShopStatus status);
 
-    //개설, 폐쇄 신청 쇼핑몰 한개 보기
-    Shop findByIdAndStatus(Long shopId, ShopStatus status);
+
 
 }

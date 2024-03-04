@@ -14,10 +14,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+
     //사업자 사용자 전환 신청 목록 열람
     //READ ALL
     @GetMapping("/business-request-list")
-    public List<UserEntity> readBusinessList(){
+    public List<UserEntity> readBusinessList() {
         return adminService.readBusinessList();
     }
 
@@ -28,33 +29,41 @@ public class AdminController {
             @PathVariable("id") Long id,
             //true = 승인, false = 반려
             @RequestParam("confirm") Boolean confirm
-    ){
+    ) {
         adminService.updateBusiness(id, confirm);
         return "완료되었습니다.";
     }
 
     //개설 신청 쇼핑몰 목록 열람
-    @GetMapping("/shop-list")
-    public void readShopList(){
-   //     return adminService.readShopList();
+    @GetMapping("/shop-open-list")
+    public List<ShopDto> readShopList() {
+        return adminService.readShopList();
     }
 
     //허가 또는 불허에 따라 쇼핑몰 개설
-    @PostMapping("/shop-update")
-    public void updateShop(){
-//        adminService.updateShop();
+    @PostMapping("/shop-open/{shopId}")
+    public ShopDto updateShop(
+            @PathVariable("shopId") Long shopId,
+            //true = 승인, false = 반려
+            @RequestParam("confirm") Boolean confirm,
+            //반려 이유 작성
+            @RequestBody(required = false) ShopDto dto
+    ) {
+        return adminService.updateShop(shopId, confirm, dto);
     }
 
     //쇼핑몰 폐쇄 요청 열람
     @GetMapping("/shop-close-list")
-    public void readCloseShopList(){
- //       return adminService.readCloseShopList();
+    public List<ShopDto> readCloseShopList() {
+          return adminService.readCloseShopList();
     }
 
-    //쇼핑몰 폐쇄 요청 수락 및 거절
-    @PostMapping("/shop-close")
-    public void updateCloseShop(){
-//        return adminService.updateCloseShop();
+    //쇼핑몰 폐쇄 요청 수락하고 삭제
+    @PostMapping("/shop-close/{shopId}")
+    public ShopDto updateCloseShop(
+            @PathVariable("shopId") Long shopId
+    ) {
+           return adminService.updateCloseShop(shopId);
     }
 
 }
