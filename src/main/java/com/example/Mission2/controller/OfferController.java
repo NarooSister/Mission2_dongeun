@@ -65,7 +65,7 @@ public class OfferController {
     }
 
     //UPDATE
-    //대표 이미지 등록
+    //TODO: 대표 이미지 등록
 
     //DELETE
     //구매자가 구매 제안 삭제

@@ -30,7 +30,6 @@ public class GoodsService {
     private final UserRepository userRepository;
     private final GoodsRepository goodsRepository;
     private final AuthenticationFacade authFacade;
-    private final ShopAuthenticationFacade shopFacade;
     private final ShopRepository shopRepository;
 
     //CREATE
