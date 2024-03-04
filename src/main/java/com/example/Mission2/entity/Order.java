@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Builder
@@ -17,6 +19,7 @@ public class Order {
     private Long id;
     private Integer amount;     //구매 수량
     private String reason;      //구매 요청 거절 이유
+    private LocalDateTime createdAt;    //주문 시간
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Goods goods;

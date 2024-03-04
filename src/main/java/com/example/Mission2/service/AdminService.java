@@ -2,6 +2,7 @@ package com.example.Mission2.service;
 
 import com.example.Mission2.dto.UserDto;
 import com.example.Mission2.entity.UserEntity;
+import com.example.Mission2.repository.ShopRepository;
 import com.example.Mission2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class AdminService {
     private final UserRepository userRepository;
+    private final ShopService shopService;
 
     //사업자 이용자 전환 신청 유저 목록
     public List<UserEntity> readBusinessList() {
@@ -52,7 +54,7 @@ public class AdminService {
         }
 
         //사업자 사용자에게 준비중 상태의 쇼핑몰 추가
-
+        shopService.createShop(id);
     }
 
 
