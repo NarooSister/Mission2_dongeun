@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -69,12 +70,9 @@ public class GoodsService {
         }
 
         //저장
-        List<GoodsDto> goodsDtoList = new ArrayList<>();
-        for (Goods goods : goodsList) {
-            GoodsDto dto = GoodsDto.fromEntity(goods);
-            goodsDtoList.add(dto);
-        }
-        return goodsDtoList;
+        return goodsList.stream()
+                .map(GoodsDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     //UPDATE

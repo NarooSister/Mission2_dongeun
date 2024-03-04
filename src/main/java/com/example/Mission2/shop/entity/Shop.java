@@ -35,8 +35,8 @@ public class Shop {
     @OneToOne
     private UserEntity owner;
 
-    @OneToMany(mappedBy = "shop")
-    private List<Goods> goods = new ArrayList<>();
+//    @OneToMany(mappedBy = "shop")
+//    private List<Goods> goods = new ArrayList<>();
 
     @OneToMany
     private List<Order> orders = new ArrayList<>();

@@ -17,18 +17,20 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Setter
-    private Integer amount;     //구매 수량
+    private Integer amount;     //주문 수량
     @Setter
-    private String reason;      //구매 요청 거절 이유
+    private String rejectReason;      //구매 요청 거절 이유
+    @Setter
+    private OrderStatus status;     //주문 상태
     @Setter
     private LocalDateTime createdAt;    //주문 시간
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Goods goods;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Shop owner;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity customer;
+    @Setter
+    @ManyToOne
+    private Goods goods;                //주문 상품
+    @Setter
+    @ManyToOne
+    private Shop shop;                 //판매자
+    @Setter
+    @ManyToOne
+    private UserEntity customer;        //구매자
 }

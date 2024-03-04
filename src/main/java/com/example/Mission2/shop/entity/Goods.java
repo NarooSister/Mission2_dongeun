@@ -30,4 +30,5 @@ public class Goods {
 
     @ManyToOne
     private Shop shop;
+
 }
