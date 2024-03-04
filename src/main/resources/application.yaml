@@ -16,3 +16,6 @@ spring:
 
 jwt:
   secret: aaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaesoioegwaaaabbbsdifqbvaes
+
+toss:
+  secret: <toss-secret>
