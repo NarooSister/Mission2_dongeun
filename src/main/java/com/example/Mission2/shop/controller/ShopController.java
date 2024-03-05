@@ -23,7 +23,6 @@ public class ShopController {
     @GetMapping
     public List<ShopDto> readAll(
             // 0:기본 조회, 1:이름순 조회, 2:분류별 조회
-            //TODO: 기본 조회시 최근 주문순으로 조회되는 것 TEST
             @RequestParam("condition") Integer condition,
             // 이름순, 분류별로 조회할 때 이름, 분류 입력
             // 기본 조회 시 null 값 가능

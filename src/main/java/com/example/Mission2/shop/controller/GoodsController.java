@@ -45,8 +45,8 @@ public class GoodsController {
     @PutMapping("{id}")
     public GoodsDto update(
             @PathVariable("id") Long id,
-            @RequestBody GoodsDto dto,
-            @ModelAttribute MultipartFile goodsImage
+            @ModelAttribute GoodsDto dto,
+            MultipartFile goodsImage
     ){
         return service.updateGoods(id, dto, goodsImage);
     }

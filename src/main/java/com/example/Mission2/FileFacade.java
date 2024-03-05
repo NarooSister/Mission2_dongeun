@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @RequiredArgsConstructor
@@ -31,17 +32,17 @@ public class FileFacade {
         switch (imageCategory){
             case USER -> {
                 imageDir = "media/profile/";
-                imageName = "_profile";
+                imageName = "profile_";
                 break;
             }
             case USED_ITEM -> {
                 imageDir = "media/itemImage/";
-                imageName = "_itemImage";
+                imageName = "itemImage_";
                 break;
             }
             case GOODS -> {
                 imageDir = "media/goodsImage/";
-                imageName = "_goodsImage";
+                imageName = "goodsImage_";
                 break;
             }
         }
@@ -57,9 +58,11 @@ public class FileFacade {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        //filename
-        LocalDateTime createAt = LocalDateTime.now();
-        String fileName = imageName + createAt;
+        //filename에 날짜 추가
+        // 특수문자 : 사용이 불가능해서 형식 바꿈
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        String fileName = imageName + formattedDateTime;
 
         // 실제 파일 이름을 경로와 확장자를 포함하여 만들기 ("profile_{username}.{png}")
         String originalFilename = image.getOriginalFilename();
