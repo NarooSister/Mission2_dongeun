@@ -247,6 +247,7 @@ Postman으로 테스트
 <div>
 
 ![users_register.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_register.png)
+
 </div>
 </details>
 
@@ -264,6 +265,8 @@ Postman으로 테스트
 
 
 ### 3. 마이 페이지
+
+
 <details>
 <summary>Postman</summary>
 <div markdown="1">
@@ -393,9 +396,15 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 물품 생성
+
 ![items_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_create.png)
 
+- DB에서 확인
+
 ![items_create_db.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_create_db.png)
+
+- ImageUrl 포함하여 생성
 
 ![items_create_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_create_image.png)
 
@@ -433,6 +442,7 @@ Postman으로 테스트
 <div>
 
 ![items_update_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_update_image.png)
+
 </div>
 </details>
 
@@ -443,7 +453,12 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 판매자만 삭제할 수 있음
+
 ![items_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_delete.png)
+
+
+- DB에서 지워진 것 확인
 
 ![items_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_delete_DB.png)
 
@@ -464,9 +479,15 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
-![offers_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_create.png)
+- 없는 itemId를 입력했을 떄 오류
 
 ![offers_create_error.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_create_error.png)
+
+- 구매 제안 등록
+
+![offers_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_create.png)
+
+
 </div>
 </details>
 
@@ -487,7 +508,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 제안 상세 열람
+
 ![offers_readOne.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_readOne.png)
+
+- 구매자는 자신의 제안만 열람이 가능함.
 
 ![offers_readOne_unAuth.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_readOne_unAuth.png)
 
@@ -500,7 +525,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 판매자가 구매 제안을 수락
+
 ![offers_accept.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_accept.png)
+
+- DB에 ACCEPT로 저장된 것 확인
 
 ![offers_accept_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_accept_DB.png)
 
@@ -515,7 +544,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 구매자가 구매 확정, 상태 CONFIRMED로 변경됨
+
 ![offers_confirm.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_confirm.png)
+
+- DB에 저장 확인
 
 ![offers_confirm_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_confirm_DB.png)
 
@@ -528,8 +561,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 구매자가 구매 제안을 삭제
 
 ![offers_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_delete.png)
+
+- DB 확인
 
 ![offers_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_delete_DB.png)
 
@@ -568,7 +604,14 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 기본 조회
+
+- 이름순 조회
+
 ![shop_read_1.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_read_1.png)
+
+
+- 분류별 조회
 
 ![shop_read_2.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_read_2.png)
 
@@ -582,7 +625,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 쇼핑몰 정보 수정 -> 상태 APPLY로 변경됨
+
 ![shop_update.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_update.png)
+
+- DB 확인
 
 ![shop_update_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_update_DB.png)
 
@@ -606,7 +653,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 개설 신청 허락. OPEN으로 변경됨
+
 ![shop_open_confirm.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_open_confirm.png)
+
+- 반려. reject 사유 작성
 
 ![shop_open_reject.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_open_reject.png)
 
@@ -620,8 +671,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 쇼핑몰 주인이 폐쇄 요청
 
 ![shop_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_delete.png)
+
+- DB에 저장
 
 ![shop_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_delete_DB.png)
 
@@ -645,7 +699,11 @@ Postman으로 테스트
 <summary>Postman</summary>
 <div>
 
+- 관리자가 폐쇄 요청을 수락하면 쇼핑몰이 삭제됨
+
 ![shop_close_accept.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_close_accept.png)
+
+- DB에서 삭제 확인
 
 ![shop_close_acceptDB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_close_acceptDB.png)
 
