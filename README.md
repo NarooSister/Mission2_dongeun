@@ -228,22 +228,13 @@
 </details>
 
 
-## 코드 리뷰
-
-### ERD
-
-![ERD](./images/ERD.png)
-- 
-
-
 ## 기능 구현
 
 Postman으로 테스트
 
-API Download
+- [API Download](src%2Fmain%2Fresources%2Fstatic%2Ffile%2FShop.postman_collection.json)
 
-
-## 사용자 인증 및 권한 처리
+### 사용자 인증 및 권한 처리
 <details>
 <summary>User</summary>
 <div>
@@ -390,7 +381,7 @@ API Download
 </details>
 
 
-## 중고 거래 중개하기
+### 중고 거래 중개하기
 
 <details>
 <summary>UsedItem</summary>
@@ -551,7 +542,7 @@ API Download
 </details>
 
 
-## 쇼핑몰 운영하기
+### 쇼핑몰 운영하기
 
 <details>
 <summary>Shop</summary>
@@ -727,6 +718,10 @@ API Download
 <summary>Postman</summary>
 <div>
 
+![goods_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_delete.png)
+
+![goods_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_delete_DB.png)
+
 </div>
 </details>
 
@@ -785,8 +780,47 @@ API Download
 <summary>Postman</summary>
 <div>
 
+![orders_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forders_delete.png)
+
+![orders_delete_error.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forders_delete_error.png)
+
+![orders_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forders_delete_DB.png)
+
 </div>
 </details>
 
 </div>
 </details>
+
+
+## 어려웠던 부분과 공부한 내용
+
+### 1. 권한 관리
+- 권한을 Enum으로 관리할 지 DB에 저장하여 관리할 지 정하기 어려웠다. 
+Enum은 열거형데이터를 표현할 수 있으나 데이터의 수정이 어려워 동적인 사용자 관리에 적절하지 않다. 
+그래서 String으로 저장하는 방식으로 entity를 짰다.
+- 그런데 지금 생각해보니 연습용 프로젝트니 Enum으로 깔끔하게 관리해도 좋았을 것 같다. 
+String으로 ROLE_TEMPORARY_USER 등을 작성할 때마다 오타가 나서 좀 힘들었다.. 나중에 Status들을 Enum으로 관리해보니 불러올 때 자동완성이 너무 좋았다..!
+
+### 2. Bean 객체 순환참조
+- CustomUserDetailsManager에 userService를 다 정리하려고 했더니
+PasswordEncoder와 UserDetailsManager 사이에 순환 참조 문제가 생겼다.
+WebSecurityConfig 파일에서 PasswordEncoder를 다른 class로 빼면 해결이 가능하긴 하다.
+UserService를 따로 만들어서 구현하기로 했다.
+- 결국에 마지막에 WebSecurityConfig에 테스트용 사용자들을 추가하면서 PasswordEncoder를 사용해야해서 
+또 순환참조 문제가 발생하여 다른 Class로 빼서 관리했다.
+
+
+### 3. Controller vs RestController
+
+
+
+### 4. UserDetailsService vs UserDetailsManager
+
+### 5. Restful API URL 구성하기
+
+### 6. MultipartFile 파일 업로드
+
+
+
+

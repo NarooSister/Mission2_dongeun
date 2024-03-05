@@ -13,14 +13,13 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService service;
 
     //CREATE
     //구매자가 구매 요청하기
-    @PostMapping("/shop/{shopId}/goods/{goodsId}/order/create")
+    @PostMapping("/shop/{shopId}/goods/{goodsId}/orders/create")
     public OrderDto create(
             @PathVariable("shopId") Long shopId,
             @PathVariable("goodsId") Long goodsId,
@@ -32,7 +31,7 @@ public class OrderController {
 
     //READ
     //쇼핑몰 주인이 구매 요청 확인 하기
-    @GetMapping("/shop/{shopId}/goods/{goodsId}/order/read")
+    @GetMapping("/shop/{shopId}/goods/{goodsId}/orders/read")
     public List<OrderDto> readAll(
             @PathVariable("shopId") Long shopId,
             @PathVariable("goodsId") Long goodsId
@@ -43,7 +42,7 @@ public class OrderController {
 
     //UPDATE
     //쇼핑몰 주인이 구매 요청을 수락 또는 거절
-    @PostMapping("/shop/{shopId}/goods/{goodsId}/order/{orderId}")
+    @PostMapping("/shop/{shopId}/goods/{goodsId}/orders/{orderId}")
     public OrderDto acceptOrder(
             @PathVariable("shopId") Long shopId,
             @PathVariable("goodsId") Long goodsId,
@@ -58,7 +57,7 @@ public class OrderController {
 
     //DELETE
     //구매자가 구매 요청 취소
-    @DeleteMapping("{orderId}")
+    @DeleteMapping("/orders/{orderId}")
     public void delete(
             @PathVariable("orderId") Long orderId
     ) {

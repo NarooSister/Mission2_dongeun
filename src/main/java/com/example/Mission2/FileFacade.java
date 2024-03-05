@@ -25,7 +25,6 @@ public class FileFacade {
 
     public Object uploadImage(ImageCategory imageCategory, MultipartFile image){
 
-
         String imageDir = "";
         String imageName = "";
 

@@ -145,7 +145,7 @@ public class OrderService {
         }
 
         //수락되기 전에만 취소 가능
-        if (!order.getStatus().equals(OrderStatus.ACCEPT)) {
+        if (order.getStatus().equals(OrderStatus.ACCEPT)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

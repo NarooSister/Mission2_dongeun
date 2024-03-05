@@ -21,6 +21,7 @@ public class Order {
     @Setter
     private String rejectReason;      //구매 요청 거절 이유
     @Setter
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;     //주문 상태
     @Setter
     private LocalDateTime createdAt;    //주문 시간
