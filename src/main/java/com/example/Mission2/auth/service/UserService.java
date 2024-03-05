@@ -1,5 +1,7 @@
 package com.example.Mission2.auth.service;
 
+import com.example.Mission2.FileFacade;
+import com.example.Mission2.ImageCategory;
 import com.example.Mission2.auth.AuthenticationFacade;
 import com.example.Mission2.auth.dto.UserDto;
 import com.example.Mission2.auth.entity.CustomUserDetails;
@@ -30,6 +32,7 @@ public class UserService {
     private final JwtTokenUtils jwtTokenUtils;
     private final UserRepository userRepository;
     private final AuthenticationFacade facade;
+    private final FileFacade fileFacade;
 
     //로그인
     public String loginUser(JwtRequestDto dto) {
@@ -79,48 +82,51 @@ public class UserService {
 
     //프로필 이미지 등록
     public UserDto updateUserImage(MultipartFile image) {
-        //유저 존재 확인
-        UserEntity userEntity = facade.getUserEntity();
+//        //유저 존재 확인
+//        UserEntity userEntity = facade.getUserEntity();
+//
+//        String profileDir = "media/profile/";
+//        log.info(profileDir);
+//        // 주어진 Path를 기준으로, 없는 모든 디렉토리를 생성하는 메서드
+//        try {
+//            Files.createDirectories(Path.of(profileDir));
+//        } catch (IOException e) {
+//            // 폴더를 만드는데 실패하면 기록을하고 사용자에게 알림
+//            log.error(e.getMessage());
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        String username = facade.getUserEntity().getUsername();
+//
+//        // 실제 파일 이름을 경로와 확장자를 포함하여 만들기 ("profile_{username}.{png}")
+//        String originalFilename = image.getOriginalFilename();
+//        String[] fileNameSplit = originalFilename.split("\\.");
+//        String extension = fileNameSplit[fileNameSplit.length - 1];
+//
+//        String profileFilename = "profile_" + username +"." + extension;
+//        log.info(profileFilename);
+//
+//        //경로
+//        String profilePath = profileDir + profileFilename;
+//        log.info(profilePath);
+//
+//        // 실제로 해당 위치에 파일을 저장
+//        try {
+//            image.transferTo(Path.of(profilePath));
+//        } catch (IOException e) {
+//            log.error(e.getMessage());
+//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        Long id = facade.getUserEntity().getId();
+//        // User에 아바타 위치를 저장
+//        // http://localhost:8080/static/{id}/profile_{username}.{확장자}
+//        String requestPath = String.format("/static/%d/%s", id, profileFilename);
+//        log.info(requestPath);
+//        UserEntity target = facade.getUserEntity();
+//        target.setImageUrl(requestPath);
 
-        String profileDir = "media/profile/";
-        log.info(profileDir);
-        // 주어진 Path를 기준으로, 없는 모든 디렉토리를 생성하는 메서드
-        try {
-            Files.createDirectories(Path.of(profileDir));
-        } catch (IOException e) {
-            // 폴더를 만드는데 실패하면 기록을하고 사용자에게 알림
-            log.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        String username = facade.getUserEntity().getUsername();
-
-        // 실제 파일 이름을 경로와 확장자를 포함하여 만들기 ("profile_{username}.{png}")
-        String originalFilename = image.getOriginalFilename();
-        String[] fileNameSplit = originalFilename.split("\\.");
-        String extension = fileNameSplit[fileNameSplit.length - 1];
-        String profileFilename = "profile_" + username +"." + extension;
-        log.info(profileFilename);
-
-        //경로
-        String profilePath = profileDir + profileFilename;
-        log.info(profilePath);
-
-        // 실제로 해당 위치에 파일을 저장
-        try {
-            image.transferTo(Path.of(profilePath));
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        Long id = facade.getUserEntity().getId();
-        // User에 아바타 위치를 저장
-        // http://localhost:8080/static/{id}/profile_{username}.{확장자}
-        String requestPath = String.format("/static/%d/%s", id, profileFilename);
-        log.info(requestPath);
-        UserEntity target = facade.getUserEntity();
-        target.setImageUrl(requestPath);
+        UserEntity target = (UserEntity) fileFacade.uploadImage(ImageCategory.USER, image);
 
         // 5. 응답하기
         return UserDto.fromEntity(userRepository.save(target));

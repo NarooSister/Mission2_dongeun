@@ -4,6 +4,7 @@ import com.example.Mission2.shop.dto.GoodsDto;
 import com.example.Mission2.shop.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,9 +18,10 @@ public class GoodsController {
     //쇼핑몰 주인이 상품을 등록
     @PostMapping
     public GoodsDto create(
-            @RequestBody GoodsDto dto
+            @ModelAttribute GoodsDto dto,
+            MultipartFile goodsImage
     ){
-        return service.createGoods(dto);
+        return service.createGoods(dto, goodsImage);
     }
 
     //READ ALL
@@ -43,9 +45,10 @@ public class GoodsController {
     @PutMapping("{id}")
     public GoodsDto update(
             @PathVariable("id") Long id,
-            @RequestBody GoodsDto dto
+            @RequestBody GoodsDto dto,
+            @ModelAttribute MultipartFile goodsImage
     ){
-        return service.updateGoods(id, dto);
+        return service.updateGoods(id, dto, goodsImage);
     }
 
     //DELETE

@@ -1,5 +1,7 @@
 package com.example.Mission2.usedItem.service;
 
+import com.example.Mission2.FileFacade;
+import com.example.Mission2.ImageCategory;
 import com.example.Mission2.auth.AuthenticationFacade;
 import com.example.Mission2.usedItem.dto.ItemDto;
 import com.example.Mission2.usedItem.entity.ItemStatus;
@@ -11,8 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,19 +27,24 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final AuthenticationFacade facade;
+    private final FileFacade fileFacade;
 
     //CREATE
     //물품 등록
-    public ItemDto createItem(ItemDto dto) {
+    public ItemDto createItem(ItemDto dto, MultipartFile itemImage) {
         //사용자 정보 가지고 오기
         String username = facade.getUserEntity().getUsername();
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+        //itemImage 생성
+        String requestPath = (String) fileFacade.uploadImage(ImageCategory.USED_ITEM, itemImage);
+
         UsedItem item = UsedItem.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
+                .imageUrl(requestPath)
                 .status(ItemStatus.ON_SALE)
                 .user(user)
                 .build();
@@ -71,7 +80,7 @@ public class ItemService {
     }
 
     //UPDATE - 판매자만 가능
-    public ItemDto updateItem(Long id, ItemDto dto) {
+    public ItemDto updateItem(Long id, ItemDto dto, MultipartFile itemImage) {
         //id로 정보 찾기
         Optional<UsedItem> optionalItem = itemRepository.findById(id);
         if (optionalItem.isEmpty()) {
@@ -83,8 +92,12 @@ public class ItemService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "판매자만 수정할 수 있습니다.");
         }
 
+        //이미지 저장
+        String requestPath = (String) fileFacade.uploadImage(ImageCategory.USED_ITEM, itemImage);
+
         target.setTitle(dto.getTitle());
         target.setDescription(dto.getDescription());
+        target.setImageUrl(requestPath);
         target.setPrice(dto.getPrice());
 
         return ItemDto.fromEntity(itemRepository.save(target));

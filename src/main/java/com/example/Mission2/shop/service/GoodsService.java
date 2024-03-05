@@ -1,5 +1,7 @@
 package com.example.Mission2.shop.service;
 
+import com.example.Mission2.FileFacade;
+import com.example.Mission2.ImageCategory;
 import com.example.Mission2.auth.AuthenticationFacade;
 import com.example.Mission2.shop.dto.GoodsDto;
 import com.example.Mission2.shop.entity.Goods;
@@ -12,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -27,10 +30,11 @@ public class GoodsService {
     private final GoodsRepository goodsRepository;
     private final AuthenticationFacade authFacade;
     private final ShopRepository shopRepository;
+    private final FileFacade fileFacade;
 
     //CREATE
     //쇼핑몰 주인이 상품을 등록
-    public GoodsDto createGoods(GoodsDto dto) {
+    public GoodsDto createGoods(GoodsDto dto, MultipartFile goodsImage) {
         //유저 불러오기
         UserEntity user = authFacade.getUserEntity();
 
@@ -40,13 +44,16 @@ public class GoodsService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         Shop shop = optionalShop.get();
 
+        //goodsImage 생성
+        String requestPath = (String) fileFacade.uploadImage(ImageCategory.GOODS, goodsImage);
+
         //상품 정보 저장
         Goods goods = Goods.builder()
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
                 .stock(dto.getStock())
-                .imageUrl(dto.getImageUrl())
+                .imageUrl(requestPath)
                 .shop(shop)
                 .build();
 
@@ -77,7 +84,7 @@ public class GoodsService {
 
     //UPDATE
     //쇼핑몰 주인이 등록한 상품을 수정
-    public GoodsDto updateGoods(Long id, GoodsDto dto){
+    public GoodsDto updateGoods(Long id, GoodsDto dto, MultipartFile goodsImage){
 
         //유저 불러오기
         UserEntity user = authFacade.getUserEntity();
@@ -98,12 +105,15 @@ public class GoodsService {
         if(!goods.getShop().getId().equals(shop.getId()))
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
+        //이미지 생성
+        String requestPath = (String) fileFacade.uploadImage(ImageCategory.GOODS, goodsImage);
+
         //정보 수정
         goods.setName(dto.getName());
         goods.setDescription(dto.getDescription());
         goods.setPrice(dto.getPrice());
         goods.setStock(dto.getStock());
-        goods.setImageUrl(dto.getImageUrl());
+        goods.setImageUrl(requestPath);
 
         return GoodsDto.fromEntity(goodsRepository.save(goods));
     }

@@ -4,6 +4,7 @@ import com.example.Mission2.usedItem.dto.ItemDto;
 import com.example.Mission2.usedItem.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,10 +18,11 @@ public class ItemController {
     //물품 정보 등록
     @PostMapping
     public ItemDto create(
-            @RequestBody
-            ItemDto dto
+            @ModelAttribute
+            ItemDto dto,
+            MultipartFile itemImage
     ){
-        return itemService.createItem(dto);
+        return itemService.createItem(dto, itemImage);
 
     }
 
@@ -46,11 +48,11 @@ public class ItemController {
     @PutMapping("/{id}")
     public ItemDto update(
             @PathVariable("id") Long id,
-            @RequestBody ItemDto dto
+            @ModelAttribute ItemDto dto,
+            MultipartFile itemImage
     ){
-        return itemService.updateItem(id, dto);
+        return itemService.updateItem(id, dto, itemImage);
     }
-
 
     //DELETE
     //등록된 물품 삭제
