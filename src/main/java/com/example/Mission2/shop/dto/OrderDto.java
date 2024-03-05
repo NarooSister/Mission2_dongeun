@@ -19,9 +19,9 @@ public class OrderDto {
     private OrderStatus status;     //주문 상태
     private LocalDateTime createdAt;    //주문시간
 
-//    private Long shopId;
-//    private Long customerId;
-//    private Long goodsId;
+    private String tossPaymentKey;
+    private String tossOrderId;
+
 
     public static OrderDto fromEntity(Order order){
         return OrderDto.builder()
@@ -30,9 +30,8 @@ public class OrderDto {
                 .rejectReason(order.getRejectReason())
                 .status(order.getStatus())
                 .createdAt(order.getCreatedAt())
-//                .shopId(order.getShop().getId())
-//                .customerId(order.getCustomer().getId())
-//                .goodsId(order.getGoods().getId())
+                .tossPaymentKey(order.getTossPaymentKey())
+                .tossOrderId(order.getTossOrderId())
                 .build();
     }
 }

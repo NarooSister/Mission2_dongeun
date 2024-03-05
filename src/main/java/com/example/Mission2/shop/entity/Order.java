@@ -25,12 +25,15 @@ public class Order {
     @Setter
     private LocalDateTime createdAt;    //주문 시간
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Goods goods;                //주문 상품
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;                 //판매자
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity customer;        //구매자
+
+    private String tossPaymentKey;
+    private String tossOrderId;
 }
