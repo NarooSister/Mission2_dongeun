@@ -19,7 +19,6 @@
 
 ## 기능 설명
 
----
 
 
 ### 1. 기본 과제
@@ -37,12 +36,9 @@
 
 ## 기본 과제 요구사항
 
----
-
 
 ### 1. 사용자 인증 및 권한 처리
 
----
 
 - 요청을 보낸 사용자가 누구인지 구분할 수 있는 인증 체계가 갖춰져야 한다.
     - JWT 기반의 토큰 인증 방식이 권장된다.
@@ -66,7 +62,7 @@
 
 ### 2. 중고거래 중개하기
 
----
+
 
 - 물품 등록
     - 일반 사용자는 중고 거래를 목적으로 물품에 대한 정보를 등록할 수 있다.
@@ -91,10 +87,9 @@
 
 ### 3. 쇼핑몰 운영하기
 
----
 
 
-- - 쇼핑몰 개설
+- 쇼핑몰 개설
     - 일반 사용자가 사업자 사용자로 전환될 때 **준비중** 상태의 쇼핑몰이 추가된다. 사업자 사용자는 이 쇼핑몰의 주인이 된다.
     - 쇼핑몰에는 이름, 소개, 분류의 정보를 가지고 있으며, 주인은 자유롭게 수정이 가능하다.
         - 분류의 종류는 서비스 제작자에 의해 미리 정해진다. (최소 5)
@@ -108,14 +103,14 @@
 
 - 쇼핑몰 관리
     - 쇼핑몰 주인은 쇼핑몰에 상품을 등록할 수 있다.
-        - 필수적인 정보는 상품 이름, 상품 이미지, 상품 설명, 상품 가격, 상품 분류, 상품 소분류, 상품 재고가 있다.
+        - 필수적인 정보는 상품 이름, 상품 이미지, 상품 설명, 상품 가격, 상품 재고가 있다.
     - 쇼핑몰 주인은 등록한 상품을 수정할 수 있다.
     - 쇼핑몰 주인은 등록한 상품을 삭제할 수 있다.
 
 - 쇼핑몰 조회
     - 비활성 사용자를 제외한 사용자는 쇼핑몰을 조회할 수 있다.
         - 조건 없이 조회할 경우, 가장 최근에 거래가 있었던 쇼핑몰 순서로 조회된다.
-        - 이름, 쇼핑몰 분류~~, 등록된 상품 분류, 등록된 상품 소분류~~를 조건으로 쇼핑몰을 검색할 수 있다. ~~단, 분류와 소분류는 하나만 선택이 가능하다.~~
+        - 이름, 쇼핑몰 분류를 조건으로 쇼핑몰을 검색할 수 있다.
 
 - 쇼핑몰 상품 검색
     - 비활성 사용자를 제외한 사용자는 쇼핑몰의 상품을 검색할 수 있다.
@@ -130,14 +125,16 @@
         - 구매 요청이 수락되면, 상품 재고가 자동으로 갱신된다. 이후엔 구매 취소가 불가능하다.
         - 구매 요청이 수락되기 전에는 구매 요청을 취소할 수 있다.
 
+
+
+
 ## 추가 과제 요구사항
 
----
 
 
 ### 1. 결제 시스템 (Toss Payments)
 
----
+
 
 - 사용자가 서비스 사용중 두가지 상황에서 결제를 진행하도록 서비스를 수정한다.
 
@@ -151,7 +148,7 @@
 
 ### 2. 사용자 위치기반 기능 (NCP Maps)
 
----
+
 
 사용자 위치 기반 서비스를 추가한다.
 
@@ -166,7 +163,7 @@
 
 ### 3. 알림 기능 추가하기 - E-mail (Jakarta Mail)
 
----
+
 
 서비스의 특정 지점의 사용자에게 이메일로 서비스의 상태 변화를 알려준다.
 
@@ -195,7 +192,7 @@
 
 ### 4. 알림 기능 추가하기 - SMS (NCP SENS)
 
----
+
 
 서비스의 특정 지점에 사용자에게 문자로 서비스의 상태 변화를 알려준다. 이 기능 또는 E-mail 기능은 둘 중 하나만 적용한다. [NCP SENS](https://www.ncloud.com/product/applicationService/sens) 서비스를 활용한다.
 
@@ -217,7 +214,7 @@
 
 ### 5. 사업자 자동 로그인 방지 (NCP Capcha)
 
----
+
 
 사업자 사용자 또는 관리자의 자동 로그인을 방지한다.
 
@@ -239,30 +236,62 @@
 - 
 
 
-## 테스트 방법
+## 기능 구현
+
 Postman으로 테스트
 
+API Download
 
-### UserController
-1. 회원가입
+
+## 사용자 인증 및 권한 처리
+<details>
+<summary>User</summary>
+<div>
+
+### 1. 회원가입
+
+
+<details>
+<summary>Postman</summary>
+<div>
 
 ![users_register.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_register.png)
+</div>
+</details>
 
+### 2. 로그인
 
-2. 로그인
+- 로그인 후 jwt 토큰 값 저장
+<details>
+<summary>Postman</summary>
+<div>
 
 ![users_login.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_login.png)
-
-로그인 후 jwt 토큰 값 저장
-
-3. 마이 페이지
+</div>
+</details>
 
 
-4. 임시 사용자 -> 일반 사용자 전환
+
+### 3. 마이 페이지
+<details>
+<summary>Postman</summary>
+<div markdown="1">
+
+![users_my-page.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_my-page.png)
+</div>
+</details>
+
+### 4. 임시 사용자 -> 일반 사용자 전환
+
+
+<details>
+<summary>Postman</summary>
+<div markdown="1">
 
 - Auth에서 token 값 입력
 
 ![users_update_token.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_update_token.png)
+
 
 - params에 username 보내기
 
@@ -272,7 +301,16 @@ Postman으로 테스트
 
 ![users_update_success.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_update_success.png)
 
-5. 프로필 이미지 등록
+</div>
+</details>
+
+
+
+### 5. 프로필 이미지 등록
+
+<details>
+<summary>Postman</summary>
+<div>
 
 - token 값 입력 후 이미지 파일 등록
 - 이미지 url 저장된 것 확인
@@ -283,7 +321,17 @@ Postman으로 테스트
 
 ![users_image_save.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_image_save.png)
 
-6. 사업자 사용자로 전환 신청
+</div>
+</details>
+
+
+### 6. 사업자 사용자로 전환 신청
+
+
+<details>
+<summary>Postman</summary>
+<div markdown="1">
+
 
 - 사업자 번호 등록
 
@@ -293,14 +341,35 @@ Postman으로 테스트
 
 ![users_businessNum_save.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fusers_businessNum_save.png)
 
-### AdminController
+</div>
+</details>
 
-1. 일반 사용자 -> 사업자 사용자 전환 신청 목록 열람
+</div>
+</details>
+
+<details>
+<summary>Admin</summary>
+<div>
+
+### 1. 일반 사용자 -> 사업자 사용자 전환 신청 목록 열람
+
+<details>
+<summary>Postman</summary>
+<div markdown="1">
+
+
 
 ![admin_business_requestList.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fadmin_business_requestList.png)
 
+</div>
+</details>
 
-2. 신청 목록을 보고 승인, 반려
+### 2. 신청 목록을 보고 승인, 반려
+
+<details>
+<summary>Postman</summary>
+<div markdown="1">
+
 
 - 승인 : id와 true 전달
 
@@ -314,3 +383,410 @@ Postman으로 테스트
 
 ![admin_business_log.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fadmin_business_log.png)
 
+</div>
+</details>
+
+</div>
+</details>
+
+
+## 중고 거래 중개하기
+
+<details>
+<summary>UsedItem</summary>
+<div>
+
+### 1. CREATE - 물품 정보 등록
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![items_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_create.png)
+
+![items_create_db.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_create_db.png)
+
+![items_create_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_create_image.png)
+
+</div>
+</details>
+
+### 2. REAL ALL - 물품 목록 열람
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![items_readAll.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_readAll.png)
+
+</div>
+</details>
+
+### 3. READ ONE - 물품 상세 정보 열람
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![items_readOne.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_readOne.png)
+
+</div>
+</details>
+
+
+### 4. UPDATE - 물품 정보 수정
+
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![items_update_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_update_image.png)
+</div>
+</details>
+
+### 5. DELETE - 등록된 물품 삭제
+
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![items_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_delete.png)
+
+![items_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fitems_delete_DB.png)
+
+</div>
+</details>
+
+</div>
+</details>
+
+
+<details>
+<summary>Offer</summary>
+<div>
+
+### 1. CREATE - 구매 제안 등록
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![offers_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_create.png)
+
+![offers_create_error.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_create_error.png)
+</div>
+</details>
+
+### 2. READ ALL - 판매자: 모든 구매 제안 열람
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![offers_readAll.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_readAll.png)
+
+</div>
+</details>
+
+### 3. READ ONE - 구매자: 제안 상세 열람
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![offers_readOne.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_readOne.png)
+
+![offers_readOne_unAuth.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_readOne_unAuth.png)
+
+</div>
+</details>
+
+### 4. UPDATE - 판매자: 구매 제안 수락 또는 거절
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![offers_accept.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_accept.png)
+
+![offers_accept_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_accept_DB.png)
+
+
+
+</div>
+</details>
+
+### 5. UPDATE - 구매자: 구매 확정을 결정
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![offers_confirm.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_confirm.png)
+
+![offers_confirm_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_confirm_DB.png)
+
+</div>
+</details>
+
+### 6. DELETE - 구매자: 구매 제안 삭제
+
+<details>
+<summary>Postman</summary>
+<div>
+
+
+![offers_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_delete.png)
+
+![offers_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Foffers_delete_DB.png)
+
+</div>
+</details>
+
+
+
+</div>
+</details>
+
+
+## 쇼핑몰 운영하기
+
+<details>
+<summary>Shop</summary>
+<div>
+
+### 1. CREATE - 쇼핑몰 생성
+- 일반 사용자 -> 사업자 사용자 변경시 '준비중' 상태의 쇼핑몰 자동 등록
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_create_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_create_DB.png)
+
+</div>
+</details>
+
+### 2. READ ALL - 사용자:쇼핑몰 조회
+
+- 0:기본 조회, 1:이름순 조회, 2:분류별 조회
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_read_1.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_read_1.png)
+
+![shop_read_2.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_read_2.png)
+
+
+</div>
+</details>
+
+### 3. UPDATE - 쇼핑몰 주인: 쇼핑몰 정보 수정 -> 오픈 신청
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_update.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_update.png)
+
+![shop_update_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_update_DB.png)
+
+</div>
+</details>
+
+### 5. ADMIN: 쇼핑몰 개설 신청 목록 보기
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_open_list.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_open_list.png)
+
+</div>
+</details>
+
+### 6. ADMIN: 쇼핑몰 개설 신청 허락 또는 반려
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_open_confirm.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_open_confirm.png)
+
+![shop_open_reject.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_open_reject.png)
+
+</div>
+</details>
+
+
+### 7. DELETE - 쇼핑몰 주인: 쇼핑몰 폐쇄 요청
+
+<details>
+<summary>Postman</summary>
+<div>
+
+
+![shop_delete.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_delete.png)
+
+![shop_delete_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_delete_DB.png)
+
+</div>
+</details>
+
+### 8. ADMIN: 쇼핑몰 폐쇄 요청 목록 보기
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_close_list.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_close_list.png)
+
+</div>
+</details>
+
+
+### 9. ADMIN: 쇼핑몰 폐쇄 수락 -> 쇼핑몰 삭제
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![shop_close_accept.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_close_accept.png)
+
+![shop_close_acceptDB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fshop_close_acceptDB.png)
+
+</div>
+</details>
+
+
+</div>
+</details>
+
+
+
+<details>
+<summary>Goods</summary>
+<div>
+
+### 1. CREATE - 쇼핑몰 주인: 상품 등록
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![goods_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_create.png)
+
+![goods_create_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_create_DB.png)
+
+![goods_create_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_create_image.png)
+
+
+</div>
+</details>
+
+### 2. READ ALL - 사용자: 쇼핑몰 상품 검색
+
+- 1: 이름순 조회, 2: 가격 범위 기준
+- 이름순 조회의 경우 name 입력
+- 가격 범위 기준 조회 : min - 최소 가격, max - 최대 가격
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![goods_read_1.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_read_1.png)
+
+![goods_read_2.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_read_2.png)
+
+![goods_read_22.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_read_22.png)
+
+</div>
+</details>
+
+### 3. UPDATE - 쇼핑몰 주인: 등록한 상품을 수정
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![goods_update.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_update.png)
+
+![goods_update_image.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_update_image.png)
+
+![goods_update_image_BD.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Fgoods_update_image_BD.png)
+
+</div>
+</details>
+
+### 4. DELETE - 쇼핑몰 주인: 등록한 상품을 삭제
+
+<details>
+<summary>Postman</summary>
+<div>
+
+</div>
+</details>
+
+</div>
+</details>
+
+
+
+
+
+<details>
+<summary>Order</summary>
+<div>
+
+### 1. CREATE - 구매자: 구매 요청
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![order_create.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forder_create.png)
+
+</div>
+</details>
+
+### 2. READ - 쇼핑몰 주인: 구매 요청 확인
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![order_readAll.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forder_readAll.png)
+
+</div>
+</details>
+
+### 3. UPDATE - 쇼핑몰 주인: 구매 요청 수락 또는 거절
+
+<details>
+<summary>Postman</summary>
+<div>
+
+![order_accept_true.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forder_accept_true.png)
+
+![order_accept_DB.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forder_accept_DB.png)
+
+![order_reject.png](src%2Fmain%2Fresources%2Fstatic%2Fimages%2Forder_reject.png)
+
+
+</div>
+</details>
+
+### 4. DELETE - 구매자: 구매 요청 취소
+
+<details>
+<summary>Postman</summary>
+<div>
+
+</div>
+</details>
+
+</div>
+</details>
